@@ -280,10 +280,16 @@ body {
     z-index: 1000;
     height: 70px;
     gap: 14px;
+    display: flex;
+    align-items: center;
+}
+.nav-buttons {
+    position: absolute; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 12px; align-items: center;
 }
 .nav-btn { width: 108px; height: 36px; font-size: 14px; }
 .nav-spacer { flex: 1; }
-.nav-auth-links { display: flex; gap: 10px; align-items: center; flex-shrink: 0; }
+.nav-auth-links { display: flex; gap: 10px; align-items: center; flex-shrink: 0; margin-left: auto; }
 .nav-auth-btn {
     display: flex; align-items: center; justify-content: center;
     height: 34px; padding: 0 18px;

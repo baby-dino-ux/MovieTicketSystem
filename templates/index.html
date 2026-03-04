@@ -3,7 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TICK.IT - Cinema Ticketing</title>
+    <title>TICK.IT - The movies “Blackphone 2,” “Hoppers,” “Plant vs Zombies,” and “Together” are not working when I click the Book button. Please make sure they are also fully functional.
+
+I would also like to add something. What I mean is:
+
+If a movie is set to “Yesterday,” the booking should automatically display the next available date.
+
+If a movie is set to “Today,” it should remain scheduled for today, but the time should be based on the live system clock.
+
+If a movie is set to “Friday” or any other day, it should automatically adjust and update to the correct upcoming date when the movie will be shown.
+
+The scheduling system should update dynamically based on the current date and time.Cinema Ticketing</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 </head>
@@ -55,13 +65,13 @@
     <div class="carousel">
         <div class="carousel-inner" id="carouselInner">
             <div class="carousel-slide">
-                <img src="{{ url_for('static', filename='images/stranger_things_mov.png') }}" alt="Stranger Things">
+                <img src="{{ url_for('static', filename='images/stranger_things.png') }}" alt="Stranger Things">
             </div>
             <div class="carousel-slide">
                 <img src="{{ url_for('static', filename='images/avatar_fire_ash.png') }}" alt="Avatar Fire and Ash">
             </div>
             <div class="carousel-slide">
-                <img src="{{ url_for('static', filename='images/walking_dead_mov.png') }}" alt="The Walking Dead">
+                <img src="{{ url_for('static', filename='images/walking_dead.png') }}" alt="The Walking Dead">
             </div>
         </div>
         <div class="carousel-dots">
@@ -87,7 +97,7 @@
                 <div class="movie-rating">⭐ 8.7 / 10</div>
                 <div class="trending-movie-status badge-today-inline">🟢 Available Today</div>
                 <div class="trending-movie-price">450 PHP</div>
-                <a href="/booking" class="book-now-btn">Book Now</a>
+                <a href="/booking?movie_id=1" class="book-now-btn">Book Now</a>
             </div>
         </div>
         <div class="trending-movie-card">
@@ -98,7 +108,7 @@
                 <div class="movie-rating">⭐ 9.1 / 10</div>
                 <div class="trending-movie-status badge-today-inline">🟢 Available Today</div>
                 <div class="trending-movie-price">450 PHP</div>
-                <a href="/booking" class="book-now-btn">Book Now</a>
+                <a href="/booking?movie_id=2" class="book-now-btn">Book Now</a>
             </div>
         </div>
         <div class="trending-movie-card">
@@ -109,7 +119,7 @@
                 <div class="movie-rating">⭐ 8.2 / 10</div>
                 <div class="trending-movie-status badge-today-inline">🟢 Available Today</div>
                 <div class="trending-movie-price">450 PHP</div>
-                <a href="/booking" class="book-now-btn">Book Now</a>
+                <a href="/booking?movie_id=3" class="book-now-btn">Book Now</a>
             </div>
         </div>
     </div>
@@ -127,7 +137,7 @@
             <div class="mini-card-name">Deadpool &amp; Wolverine</div>
             <div class="mini-card-genre">Action</div>
             <div class="mini-card-price">450 PHP</div>
-            <a href="/booking" class="mini-book-btn">Book</a>
+            <a href="/booking?movie_id=4" class="mini-book-btn">Book</a>
         </div>
         <div class="mini-card">
             <img src="{{ url_for('static', filename='images/movies/Hoppers.png') }}" alt="Hoppers" class="mini-card-img">
@@ -141,22 +151,22 @@
             <div class="mini-card-name">Minecraft Movie</div>
             <div class="mini-card-genre">Animation</div>
             <div class="mini-card-price">450 PHP</div>
-            <a href="/booking" class="mini-book-btn">Book</a>
+            <a href="/booking?movie_id=7" class="mini-book-btn">Book</a>
         </div>
         <div class="mini-card">
             <img src="{{ url_for('static', filename='images/movies/captain_america_brave_new_world.png') }}" alt="Captain America" class="mini-card-img">
             <div class="mini-card-name">Captain America</div>
             <div class="mini-card-genre">Action</div>
             <div class="mini-card-price">450 PHP</div>
-            <a href="/booking" class="mini-book-btn">Book</a>
+            <a href="/booking?movie_id=9" class="mini-book-btn">Book</a>
         </div>
-        <div class="mini-card">
+        <div class="mini-card" onclick="showSoldOut('Shazam')">
             <img src="{{ url_for('static', filename='images/movies/shazam.png') }}" alt="Shazam" class="mini-card-img">
             <div class="mini-card-name">Shazam</div>
             <div class="mini-card-genre">Action</div>
             <div class="mini-badge-soldout">Sold Out</div>
         </div>
-        <div class="mini-card">
+        <div class="mini-card" onclick="showSoldOut('Plankton The Movie')">
             <img src="{{ url_for('static', filename='images/movies/plankton_the_movie.png') }}" alt="Plankton The Movie" class="mini-card-img">
             <div class="mini-card-name">Plankton The Movie</div>
             <div class="mini-card-genre">Animation</div>
@@ -179,7 +189,7 @@
                 <div class="coming-card-genre">Animation / Fantasy</div>
                 <div class="coming-card-date">📅 This Sunday</div>
                 <div class="coming-card-price">450 PHP</div>
-                <a href="/booking" class="book-now-btn">Reserve</a>
+                <a href="/booking?movie_id=5" class="book-now-btn">Reserve</a>
             </div>
         </div>
         <div class="coming-card">
@@ -189,7 +199,7 @@
                 <div class="coming-card-genre">Animation / Comedy</div>
                 <div class="coming-card-date">📅 This Sunday</div>
                 <div class="coming-card-price">450 PHP</div>
-                <a href="/booking" class="book-now-btn">Reserve</a>
+                <a href="/booking?movie_id=8" class="book-now-btn">Reserve</a>
             </div>
         </div>
         <div class="coming-card">
@@ -199,7 +209,7 @@
                 <div class="coming-card-genre">Fantasy / Musical</div>
                 <div class="coming-card-date">📅 This Sunday</div>
                 <div class="coming-card-price">450 PHP</div>
-                <a href="/booking" class="book-now-btn">Reserve</a>
+                <a href="/booking?movie_id=6" class="book-now-btn">Reserve</a>
             </div>
         </div>
         <div class="coming-card">
@@ -320,6 +330,16 @@
         <p class="footer-text">&#169; 2025 TICK.IT — All rights reserved</p>
     </div>
 </section>
+<!-- SOLD OUT MODAL -->
+<div id="soldoutModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.82);align-items:center;justify-content:center;" onclick="closeSoldOut()">
+    <div style="background:#130000;border:2px solid #cc0000;border-radius:20px;padding:40px 36px;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(204,0,0,.35);" onclick="event.stopPropagation()">
+        <div style="font-size:52px;margin-bottom:14px;">🎟️</div>
+        <div style="font-size:1.4rem;font-weight:900;color:#ff4444;margin-bottom:12px;">This Showing is Sold Out!</div>
+        <div style="font-size:14px;color:#ccc;line-height:1.65;margin-bottom:28px;">Sorry, <strong id="soldoutName" style="color:#fff;"></strong> is fully booked. Check out other great movies still available!</div>
+        <button onclick="closeSoldOut()" style="padding:12px 28px;background:#cc0000;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;">Browse Other Movies</button>
+    </div>
+</div>
+
 <script>
     // Carousel
     let current = 0;
@@ -343,6 +363,17 @@
         if (!pd.contains(e.target)) {
             document.getElementById("dropdownMenu").classList.remove("show");
         }
+    });
+
+    function showSoldOut(name) {
+        document.getElementById('soldoutName').textContent = name;
+        document.getElementById('soldoutModal').style.display = 'flex';
+    }
+    function closeSoldOut() {
+        document.getElementById('soldoutModal').style.display = 'none';
+    }
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeSoldOut();
     });
 </script>
 

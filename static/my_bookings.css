@@ -1,0 +1,225 @@
+/* ============================================================
+   TICK.IT — my_bookings.css
+   Completely separate from booking.css for better control.
+   Covers: Navbar, My Bookings cards, Footer
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background: #0a0000;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar {
+    position: sticky; top: 0; z-index: 1000;
+    width: 100%; background: #111;
+    border-bottom: 2px solid #300000;
+    padding: 0 28px; height: 70px;
+    display: flex; align-items: center;
+    flex-shrink: 0;
+}
+.navbar > div:first-child { flex: 1; display: flex; align-items: center; gap: 8px; }
+.navbar .nav-buttons {
+    display: flex; gap: 10px; align-items: center; flex-shrink: 0;
+    position: absolute; left: 50%; transform: translateX(-50%);
+}
+.navbar .search-wrap { flex: 1; justify-content: flex-end; margin-left: 0; }
+.logo {
+    font-weight: 700; font-size: 1.6rem;
+    color: #fff; letter-spacing: 2px; flex-shrink: 0;
+}
+.logo span { color: #cc0000; }
+
+.nav-buttons {
+    display: flex; gap: 10px;
+    align-items: center; flex-shrink: 0;
+}
+.nav-btn {
+    display: flex; align-items: center; justify-content: center;
+    width: 108px; height: 36px;
+    background: #D9D9D9; border-radius: 221px;
+    text-decoration: none; font-weight: 700;
+    font-size: 14px; color: #000;
+    transition: background .2s, color .2s;
+}
+.nav-btn:hover, .nav-btn.active { background: #cc0000; color: #fff; }
+
+.search-wrap {
+    display: flex; align-items: center;
+    gap: 12px; flex-shrink: 0; margin-left: auto;
+}
+.search-input {
+    width: 185px; height: 34px;
+    background: #D9D9D9; border-radius: 221px;
+    border: none; outline: none;
+    padding: 0 14px; font-size: 13px; color: #000;
+}
+.search-input::placeholder { color: #888; }
+.user-info { display: flex; align-items: center; gap: 10px; }
+
+.logout-btn {
+    display: flex; align-items: center; justify-content: center;
+    height: 30px; padding: 0 14px;
+    background: #300000; border-radius: 221px;
+    text-decoration: none; font-weight: 700;
+    font-size: 12px; color: #ff8888;
+    transition: background .2s;
+}
+.logout-btn:hover { background: #cc0000; color: #fff; }
+
+/* Profile dropdown */
+.profile-dropdown { position: relative; flex-shrink: 0; }
+.profile-btn { display: flex; align-items: center; cursor: pointer; transition: transform .2s; }
+.profile-btn:hover { transform: scale(1.08); }
+.profile-img {
+    width: 40px; height: 40px; border-radius: 50%;
+    object-fit: cover; border: 2px solid transparent;
+    transition: border-color .2s;
+}
+.profile-btn:hover .profile-img { border-color: #cc0000; }
+.dropdown-menu {
+    position: absolute; top: 52px; left: 0;
+    background: rgba(18,18,18,.98);
+    border: 2px solid #300000; border-radius: 12px;
+    min-width: 220px; padding: 8px 0;
+    opacity: 0; visibility: hidden; transform: translateY(-8px);
+    transition: all .25s ease;
+    box-shadow: 0 12px 36px rgba(0,0,0,.75); z-index: 1001;
+}
+.dropdown-menu.show { opacity: 1; visibility: visible; transform: translateY(0); }
+.dropdown-user-header { padding: 12px 18px 10px; border-bottom: 1px solid #300000; margin-bottom: 4px; }
+.dropdown-user-name  { font-weight: 700; font-size: 14px; color: #fff; }
+.dropdown-user-role  { font-size: 11px; color: #888; margin-top: 2px; }
+.dropdown-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 18px; color: #fff; text-decoration: none;
+    font-weight: 600; font-size: 13px; transition: background .2s;
+}
+.dropdown-item:hover { background: rgba(204,0,0,.18); }
+.dropdown-icon { font-size: 15px; width: 18px; text-align: center; }
+.dropdown-divider { height: 1px; background: #300000; margin: 5px 0; }
+
+/* ── PAGE CONTENT ────────────────────────────── */
+.mb-page {
+    flex: 1; padding: 36px 40px;
+}
+.mb-title {
+    font-size: 1.5rem; font-weight: 900; color: #fff;
+    margin-bottom: 6px;
+}
+.mb-subtitle {
+    font-size: 13px; color: #666; margin-bottom: 28px;
+}
+
+/* ── BOOKING CARDS ───────────────────────────── */
+.mb-list {
+    display: flex; flex-direction: column;
+    gap: 18px; max-width: 900px;
+}
+
+.mb-card {
+    background: #110000;
+    border: 1px solid #2a0000;
+    border-radius: 14px;
+    overflow: hidden;
+    transition: border-color .2s;
+}
+.mb-card:hover { border-color: #550000; }
+
+.mb-card.status-confirmed { border-left: 4px solid #4caf50; }
+.mb-card.status-cancelled { border-left: 4px solid #ff4444; opacity: .65; }
+.mb-card.status-completed { border-left: 4px solid #555; }
+
+/* Card top: movie title + status */
+.mb-card-top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    padding: 18px 22px 14px;
+    border-bottom: 1px solid #1f0000;
+}
+.mb-movie-info {}
+.mb-movie-title {
+    font-size: 17px; font-weight: 900; color: #fff;
+    margin-bottom: 4px;
+}
+.mb-cinema-name {
+    font-size: 12px; color: #888;
+}
+.mb-status-badge {
+    font-size: 11px; font-weight: 800;
+    padding: 4px 12px; border-radius: 6px; white-space: nowrap;
+}
+.badge-confirmed { background: rgba(76,175,80,.12); color: #4caf50; border: 1px solid #4caf50; }
+.badge-cancelled { background: rgba(204,0,0,.12);   color: #ff6666; border: 1px solid #ff4444; }
+.badge-completed { background: rgba(100,100,100,.12); color: #aaa;   border: 1px solid #555;  }
+
+/* Card body: details grid */
+.mb-card-body {
+    padding: 16px 22px;
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: 14px;
+}
+.mb-detail { display: flex; flex-direction: column; gap: 3px; }
+.mb-lbl { font-size: 10px; color: #555; text-transform: uppercase; letter-spacing: .4px; }
+.mb-val { font-size: 13px; font-weight: 700; color: #fff; }
+.mb-val.highlight { color: #ffcc00; font-size: 15px; }
+
+/* Seat tags */
+.mb-seat-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; }
+.mb-seat-tag {
+    font-size: 11px; font-weight: 800;
+    padding: 2px 8px; border-radius: 5px;
+}
+.stag-vip { background: #1a2060; color: #aabbff; }
+.stag-std { background: #1a3a1a; color: #aaffaa; }
+
+/* Card footer: ref + booked date */
+.mb-card-footer {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px 22px;
+    border-top: 1px solid #1f0000;
+    background: #0e0000;
+}
+.mb-ref { font-size: 12px; color: #666; }
+.mb-ref strong { color: #cc0000; font-size: 13px; letter-spacing: .5px; }
+.mb-booked-on { font-size: 11px; color: #444; }
+
+/* ── EMPTY STATE ─────────────────────────────── */
+.mb-empty {
+    text-align: center;
+    padding: 80px 20px;
+}
+.mb-empty-icon  { font-size: 56px; margin-bottom: 16px; }
+.mb-empty-title { font-size: 18px; font-weight: 900; color: #fff; margin-bottom: 8px; }
+.mb-empty-text  { font-size: 13px; color: #666; margin-bottom: 24px; }
+
+/* ── BUTTON ──────────────────────────────────── */
+.btn-red {
+    display: inline-block;
+    background: #cc0000; color: #fff;
+    padding: 11px 24px; border-radius: 8px;
+    text-decoration: none; font-weight: 700;
+    font-size: 13px; transition: background .2s;
+}
+.btn-red:hover { background: #ee0000; }
+
+/* ── FOOTER ──────────────────────────────────── */
+.footer-bar  { background: #0d0000; border-top: 1px solid #1a0000; padding: 16px 24px; margin-top: auto; }
+.footer-text { font-size: 12px; color: #444; text-align: center; }
+
+/* ── RESPONSIVE ──────────────────────────────── */
+@media (max-width: 700px) {
+    .mb-page        { padding: 24px 16px; }
+    .mb-card-body   { grid-template-columns: 1fr 1fr; }
+    .navbar         { padding: 0 14px; }
+    .search-input   { width: 130px; }
+}
+@media (max-width: 480px) {
+    .mb-card-body   { grid-template-columns: 1fr; }
+    .search-input   { display: none; }
+    .mb-card-footer { flex-direction: column; gap: 4px; align-items: flex-start; }
+}

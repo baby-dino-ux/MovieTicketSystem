@@ -52,13 +52,13 @@
     <div class="carousel">
         <div class="carousel-inner" id="carouselInner">
             <div class="carousel-slide">
-                <img src="{{ url_for('static', filename='images/stranger_things_mov.png') }}" alt="Stranger Things">
+                <img src="{{ url_for('static', filename='images/stranger_things.png') }}" alt="Stranger Things">
             </div>
             <div class="carousel-slide">
                 <img src="{{ url_for('static', filename='images/avatar_fire_ash.png') }}" alt="Avatar Fire and Ash">
             </div>
             <div class="carousel-slide">
-                <img src="{{ url_for('static', filename='images/walking_dead_mov.png') }}" alt="The Walking Dead">
+                <img src="{{ url_for('static', filename='images/walking_dead.png') }}" alt="The Walking Dead">
             </div>
         </div>
         <div class="carousel-dots">
@@ -118,7 +118,7 @@
                         <div class="movie-stars" data-rating="8.7">★★★★☆ <span>8.7</span></div>
                         <div class="trending-list-badge badge-today-sm">● Today</div>
                         <div class="trending-list-price">450 PHP</div>
-                        <a href="/booking?movie=Stranger+Things" class="tlc-book-btn">Book Now</a>
+                        <a href="/booking?movie_id=1" class="tlc-book-btn">Book Now</a>
                     </div>
                 </div>
                 <div class="trending-list-card" data-movie-name="Avatar Fire and Ash" data-genre="action" data-status="today">
@@ -129,7 +129,7 @@
                         <div class="movie-stars" data-rating="9.1">★★★★★ <span>9.1</span></div>
                         <div class="trending-list-badge badge-today-sm">● Today</div>
                         <div class="trending-list-price">450 PHP</div>
-                        <a href="/booking?movie=Avatar+Fire+and+Ash" class="tlc-book-btn">Book Now</a>
+                        <a href="/booking?movie_id=2" class="tlc-book-btn">Book Now</a>
                     </div>
                 </div>
                 <div class="trending-list-card" data-movie-name="The Walking Dead" data-genre="horror" data-status="today">
@@ -140,7 +140,7 @@
                         <div class="movie-stars" data-rating="8.2">★★★★☆ <span>8.2</span></div>
                         <div class="trending-list-badge badge-today-sm">● Today</div>
                         <div class="trending-list-price">450 PHP</div>
-                        <a href="/booking?movie=The+Walking+Dead" class="tlc-book-btn">Book Now</a>
+                        <a href="/booking?movie_id=3" class="tlc-book-btn">Book Now</a>
                     </div>
                 </div>
             </div>
@@ -150,135 +150,143 @@
         <h3 class="section-sub-heading" style="margin-bottom:14px;">🎬 All Movies</h3>
         <div class="movies-grid" id="moviesGrid">
 
-            <div class="movie-card" data-movie-name="Black Phone 2" data-genre="horror" data-status="yesterday" onclick="openBooking('Black Phone 2','7.8','Horror','Yesterday','450')">
+            <!-- data-schedule values:
+                 today      = showing today, badge shows live time context
+                 yesterday  = run started yesterday; next avail = tomorrow
+                 sunday     = next upcoming Sunday
+                 friday     = next upcoming Friday
+                 soldout    = fully booked, no booking allowed
+                 JS at bottom reads these and renders correct badge text + date -->
+
+            <div class="movie-card" data-movie-name="Black Phone 2" data-genre="horror" data-status="yesterday" data-schedule="yesterday" onclick="openBooking('Black Phone 2', 10)">
                 <img src="{{ url_for('static', filename='images/movies/black_phone_2.png') }}" alt="Black Phone 2" class="movie-poster">
                 <div class="movie-card-overlay">
                     <div class="mc-rating">★ 7.8</div>
                     <div class="mc-genre">Horror</div>
                     <button class="mc-book-btn">Book Now</button>
                 </div>
-                <div class="movie-badge badge-yesterday">Yesterday</div>
+                <div class="movie-badge badge-yesterday js-badge"></div>
                 <div class="movie-price">450 PHP</div>
             </div>
 
-            <div class="movie-card" data-movie-name="Captain America Brave New World" data-genre="action" data-status="yesterday" onclick="openBooking('Captain America: Brave New World','7.5','Action','Yesterday','450')">
+            <div class="movie-card" data-movie-name="Captain America Brave New World" data-genre="action" data-status="yesterday" data-schedule="yesterday" onclick="openBooking('Captain America: Brave New World', 9)">
                 <img src="{{ url_for('static', filename='images/movies/captain_america_brave_new_world.png') }}" alt="Captain America" class="movie-poster">
                 <div class="movie-card-overlay">
                     <div class="mc-rating">★ 7.5</div>
                     <div class="mc-genre">Action</div>
                     <button class="mc-book-btn">Book Now</button>
                 </div>
-                <div class="movie-badge badge-yesterday">Yesterday</div>
+                <div class="movie-badge badge-yesterday js-badge"></div>
                 <div class="movie-price">450 PHP</div>
             </div>
 
-            <div class="movie-card" data-movie-name="Deadpool & Wolverine" data-genre="action" data-status="today" onclick="openBooking('Deadpool &amp; Wolverine','8.5','Action','Today','450')">
+            <div class="movie-card" data-movie-name="Deadpool & Wolverine" data-genre="action" data-status="today" data-schedule="today" onclick="openBooking('Deadpool &amp; Wolverine', 4)">
                 <img src="{{ url_for('static', filename='images/movies/deadpool_&_wolverine.png') }}" alt="Deadpool & Wolverine" class="movie-poster">
                 <div class="movie-card-overlay">
                     <div class="mc-rating">★ 8.5</div>
                     <div class="mc-genre">Action</div>
                     <button class="mc-book-btn">Book Now</button>
                 </div>
-                <div class="movie-badge badge-today">Today</div>
+                <div class="movie-badge badge-today js-badge"></div>
                 <div class="movie-price">450 PHP</div>
             </div>
 
-            <div class="movie-card" data-movie-name="Hoppers" data-genre="animation" data-status="today" onclick="openBooking('Hoppers','7.9','Animation','Today','450')">
+            <div class="movie-card" data-movie-name="Hoppers" data-genre="animation" data-status="today" data-schedule="today" onclick="openBooking('Hoppers', 11)">
                 <img src="{{ url_for('static', filename='images/movies/Hoppers.png') }}" alt="Hoppers" class="movie-poster">
                 <div class="movie-card-overlay">
                     <div class="mc-rating">★ 7.9</div>
                     <div class="mc-genre">Animation</div>
                     <button class="mc-book-btn">Book Now</button>
                 </div>
-                <div class="movie-badge badge-today">Today</div>
+                <div class="movie-badge badge-today js-badge"></div>
                 <div class="movie-price">450 PHP</div>
             </div>
 
-            <div class="movie-card" data-movie-name="How to Train Your Dragon" data-genre="animation" data-status="sunday" onclick="openBooking('How to Train Your Dragon','8.8','Animation','This Sunday','450')">
+            <div class="movie-card" data-movie-name="How to Train Your Dragon" data-genre="animation" data-status="sunday" data-schedule="sunday" onclick="openBooking('How to Train Your Dragon', 5)">
                 <img src="{{ url_for('static', filename='images/movies/how_to_train_your_dragon.png') }}" alt="How to Train Your Dragon" class="movie-poster">
                 <div class="movie-card-overlay">
                     <div class="mc-rating">★ 8.8</div>
                     <div class="mc-genre">Animation</div>
                     <button class="mc-book-btn">Book Now</button>
                 </div>
-                <div class="movie-badge badge-sunday">Sunday</div>
+                <div class="movie-badge badge-sunday js-badge"></div>
                 <div class="movie-price">450 PHP</div>
             </div>
 
-            <div class="movie-card" data-movie-name="Lilo & Stitch" data-genre="animation" data-status="sunday" onclick="openBooking('Lilo &amp; Stitch','8.1','Animation','This Sunday','450')">
+            <div class="movie-card" data-movie-name="Lilo & Stitch" data-genre="animation" data-status="sunday" data-schedule="sunday" onclick="openBooking('Lilo &amp; Stitch', 8)">
                 <img src="{{ url_for('static', filename='images/movies/lilo_&_stitch.png') }}" alt="Lilo & Stitch" class="movie-poster">
                 <div class="movie-card-overlay">
                     <div class="mc-rating">★ 8.1</div>
                     <div class="mc-genre">Animation</div>
                     <button class="mc-book-btn">Book Now</button>
                 </div>
-                <div class="movie-badge badge-sunday">Sunday</div>
+                <div class="movie-badge badge-sunday js-badge"></div>
                 <div class="movie-price">450 PHP</div>
             </div>
 
-            <div class="movie-card" data-movie-name="Minecraft Movie" data-genre="animation" data-status="today" onclick="openBooking('Minecraft Movie','7.6','Animation','Today','450')">
+            <div class="movie-card" data-movie-name="Minecraft Movie" data-genre="animation" data-status="today" data-schedule="today" onclick="openBooking('Minecraft Movie', 7)">
                 <img src="{{ url_for('static', filename='images/movies/minecraft_movie.png') }}" alt="Minecraft Movie" class="movie-poster">
                 <div class="movie-card-overlay">
                     <div class="mc-rating">★ 7.6</div>
                     <div class="mc-genre">Animation</div>
                     <button class="mc-book-btn">Book Now</button>
                 </div>
-                <div class="movie-badge badge-today">Today</div>
+                <div class="movie-badge badge-today js-badge"></div>
                 <div class="movie-price">450 PHP</div>
             </div>
 
-            <div class="movie-card" data-movie-name="Plankton The Movie" data-genre="animation" data-status="soldout" onclick="openBooking('Plankton The Movie','7.2','Animation','Sold Out','450')">
+            <div class="movie-card" data-movie-name="Plankton The Movie" data-genre="animation" data-status="soldout" data-schedule="soldout" onclick="openBooking('Plankton The Movie', 'soldout')">
                 <img src="{{ url_for('static', filename='images/movies/plankton_the_movie.png') }}" alt="Plankton The Movie" class="movie-poster">
                 <div class="movie-card-overlay">
                     <div class="mc-rating">★ 7.2</div>
                     <div class="mc-genre">Animation</div>
-                    <button class="mc-book-btn soldout-btn" disabled>Sold Out</button>
+                    <button class="mc-book-btn soldout-btn">🔴 Sold Out</button>
                 </div>
                 <div class="movie-badge badge-soldout">Sold Out</div>
                 <div class="movie-price">450 PHP</div>
             </div>
 
-            <div class="movie-card" data-movie-name="Plants vs Zombies" data-genre="comedy" data-status="yesterday" onclick="openBooking('Plants vs Zombies','6.9','Comedy','Yesterday','450')">
+            <div class="movie-card" data-movie-name="Plants vs Zombies" data-genre="comedy" data-status="yesterday" data-schedule="yesterday" onclick="openBooking('Plants vs Zombies', 12)">
                 <img src="{{ url_for('static', filename='images/movies/plant_vs_zombies.png') }}" alt="Plants vs Zombies" class="movie-poster">
                 <div class="movie-card-overlay">
                     <div class="mc-rating">★ 6.9</div>
                     <div class="mc-genre">Comedy</div>
                     <button class="mc-book-btn">Book Now</button>
                 </div>
-                <div class="movie-badge badge-yesterday">Yesterday</div>
+                <div class="movie-badge badge-yesterday js-badge"></div>
                 <div class="movie-price">450 PHP</div>
             </div>
 
-            <div class="movie-card" data-movie-name="Shazam" data-genre="action" data-status="soldout" onclick="openBooking('Shazam','7.4','Action','Sold Out','450')">
+            <div class="movie-card" data-movie-name="Shazam" data-genre="action" data-status="soldout" data-schedule="soldout" onclick="openBooking('Shazam', 'soldout')">
                 <img src="{{ url_for('static', filename='images/movies/shazam.png') }}" alt="Shazam" class="movie-poster">
                 <div class="movie-card-overlay">
                     <div class="mc-rating">★ 7.4</div>
                     <div class="mc-genre">Action</div>
-                    <button class="mc-book-btn soldout-btn" disabled>Sold Out</button>
+                    <button class="mc-book-btn soldout-btn">🔴 Sold Out</button>
                 </div>
                 <div class="movie-badge badge-soldout">Sold Out</div>
                 <div class="movie-price">450 PHP</div>
             </div>
 
-            <div class="movie-card" data-movie-name="Together" data-genre="horror" data-status="friday" onclick="openBooking('Together','7.0','Horror','This Friday','450')">
+            <div class="movie-card" data-movie-name="Together" data-genre="horror" data-status="friday" data-schedule="friday" onclick="openBooking('Together', 13)">
                 <img src="{{ url_for('static', filename='images/movies/together.png') }}" alt="Together" class="movie-poster">
                 <div class="movie-card-overlay">
                     <div class="mc-rating">★ 7.0</div>
                     <div class="mc-genre">Horror</div>
                     <button class="mc-book-btn">Book Now</button>
                 </div>
-                <div class="movie-badge badge-friday">Friday</div>
+                <div class="movie-badge badge-friday js-badge"></div>
                 <div class="movie-price">450 PHP</div>
             </div>
 
-            <div class="movie-card" data-movie-name="Wicked For Good" data-genre="fantasy" data-status="sunday" onclick="openBooking('Wicked For Good','8.3','Fantasy','This Sunday','450')">
+            <div class="movie-card" data-movie-name="Wicked For Good" data-genre="fantasy" data-status="sunday" data-schedule="sunday" onclick="openBooking('Wicked For Good', 6)">
                 <img src="{{ url_for('static', filename='images/movies/wicked_for_good.png') }}" alt="Wicked For Good" class="movie-poster">
                 <div class="movie-card-overlay">
                     <div class="mc-rating">★ 8.3</div>
                     <div class="mc-genre">Fantasy</div>
                     <button class="mc-book-btn">Book Now</button>
                 </div>
-                <div class="movie-badge badge-sunday">Sunday</div>
+                <div class="movie-badge badge-sunday js-badge"></div>
                 <div class="movie-price">450 PHP</div>
             </div>
 
@@ -286,12 +294,24 @@
     </div>
 </section>
 
+<!-- SOLD OUT MODAL -->
+<div id="soldoutModal" class="soldout-modal-overlay" onclick="closeSoldoutModal()" style="display:none;">
+    <div class="soldout-modal-box" onclick="event.stopPropagation()">
+        <div class="soldout-modal-icon">🎟️</div>
+        <div class="soldout-modal-title">This Showing is Sold Out!</div>
+        <div class="soldout-modal-msg">Sorry, <strong id="soldoutMovieName"></strong> is fully booked. Check out other great movies still available!</div>
+        <div class="soldout-modal-actions">
+            <button class="soldout-btn-other" onclick="closeSoldoutModal()">Browse Other Movies</button>
+        </div>
+    </div>
+</div>
+
 <div class="footer-bar">
     <p class="footer-text">&#169; All rights reserved</p>
 </div>
 
 <script>
-    // Carousel
+    // ── Carousel ─────────────────────────────────────────────────
     let current = 0;
     const total = 3;
     const inner = document.getElementById("carouselInner");
@@ -303,7 +323,7 @@
     }
     setInterval(() => goToSlide((current + 1) % total), 4000);
 
-    // Profile dropdown
+    // ── Profile dropdown ─────────────────────────────────────────
     function toggleDropdown(e) {
         e.preventDefault();
         document.getElementById("dropdownMenu").classList.toggle("show");
@@ -313,7 +333,74 @@
         if (!pd.contains(e.target)) document.getElementById("dropdownMenu").classList.remove("show");
     });
 
-    // Search & Filter
+    // ── Dynamic Badge System ─────────────────────────────────────
+    // Computes the correct display label for each movie's schedule badge
+    // based on the live system clock so it always reflects the real date.
+    (function updateBadges() {
+        const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        const DAYS   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+        // Returns a Date object set to midnight of today
+        function today() {
+            const d = new Date();
+            d.setHours(0, 0, 0, 0);
+            return d;
+        }
+
+        // Returns the next occurrence of the given weekday (0=Sun…6=Sat)
+        // Always returns a future date — never today itself
+        function nextWeekday(targetDay) {
+            const d = today();
+            let diff = targetDay - d.getDay();
+            if (diff <= 0) diff += 7;
+            d.setDate(d.getDate() + diff);
+            return d;
+        }
+
+        // Format a Date as "Mon DD" e.g. "Jul 18"
+        function fmt(d) {
+            return MONTHS[d.getMonth()] + ' ' + d.getDate();
+        }
+
+        const now = new Date();
+        const hour = now.getHours();
+
+        // "Yesterday" badge → next available is tomorrow (run already started)
+        const tomorrow = today();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        const tomorrowFmt = 'Tomorrow · ' + fmt(tomorrow);
+
+        // "Today" badge → show "Today" or "Tonight" based on time of day
+        const todayLabel = hour < 17 ? 'Showing Today' : 'Showing Tonight';
+
+        // "Friday" → next upcoming Friday
+        const nextFriday = nextWeekday(5);
+        const fridayFmt  = DAYS[5] + ' · ' + fmt(nextFriday);
+
+        // "Sunday" → next upcoming Sunday
+        const nextSunday = nextWeekday(0);
+        const sundayFmt  = DAYS[0] + ' · ' + fmt(nextSunday);
+
+        // Map schedule type → { label, cssClass }
+        const scheduleMap = {
+            today:     { label: todayLabel,  cls: 'badge-today'     },
+            yesterday: { label: tomorrowFmt, cls: 'badge-yesterday' },
+            friday:    { label: fridayFmt,   cls: 'badge-friday'    },
+            sunday:    { label: sundayFmt,   cls: 'badge-sunday'    },
+        };
+
+        document.querySelectorAll('.js-badge').forEach(function(badge) {
+            const card     = badge.closest('.movie-card');
+            const schedule = card ? card.getAttribute('data-schedule') : null;
+            const info     = scheduleMap[schedule];
+            if (!info) return;
+            badge.textContent = info.label;
+            // Swap CSS class to match correct colour
+            badge.className = 'movie-badge js-badge ' + info.cls;
+        });
+    })();
+
+    // ── Search & Filter ──────────────────────────────────────────
     const searchInput   = document.getElementById('searchInput');
     const movieCards    = document.querySelectorAll('.movie-card');
     const trendingCards = document.querySelectorAll('.trending-list-card');
@@ -357,12 +444,24 @@
         noResults.style.display = visible === 0 ? 'block' : 'none';
     }
 
-    // Quick-book from movie card — redirect to booking page with movie pre-selected
-    function openBooking(movie, rating, genre, status, price) {
-        if (status === 'Sold Out') return;
-        const params = new URLSearchParams({ movie, rating, genre, status, price });
-        window.location.href = '/booking?' + params.toString();
+    // ── Book a Movie ─────────────────────────────────────────────
+    // movieId: integer DB id  |  'soldout': show modal  |  never false anymore
+    function openBooking(movieName, movieId) {
+        if (movieId === 'soldout') {
+            document.getElementById('soldoutMovieName').textContent = movieName;
+            document.getElementById('soldoutModal').style.display = 'flex';
+            return;
+        }
+        window.location.href = '/booking?movie_id=' + movieId;
     }
+
+    // ── Sold-Out Modal ───────────────────────────────────────────
+    function closeSoldoutModal() {
+        document.getElementById('soldoutModal').style.display = 'none';
+    }
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeSoldoutModal();
+    });
 </script>
 
 </body>

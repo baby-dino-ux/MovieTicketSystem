@@ -25,8 +25,13 @@ body {
     height: 70px;
     display: flex;
     align-items: center;
-    gap: 14px;
 }
+.navbar > div:first-child { flex: 1; display: flex; align-items: center; gap: 8px; }
+.navbar .nav-buttons {
+    display: flex; gap: 10px; align-items: center; flex-shrink: 0;
+    position: absolute; left: 50%; transform: translateX(-50%);
+}
+.navbar .search-wrap { flex: 1; justify-content: flex-end; margin-left: 0; }
 
 .logo { font-weight: 700; font-size: 1.6rem; color: #fff; letter-spacing: 2px; flex-shrink: 0; }
 .logo span { color: #cc0000; }
@@ -381,3 +386,45 @@ body {
     color: #aaa;
     font-size: 10px;
 }
+/* ============================
+   SOLD OUT MODAL
+   ============================ */
+.soldout-modal-overlay {
+    position: fixed; inset: 0; z-index: 9999;
+    background: rgba(0,0,0,0.82);
+    display: flex; align-items: center; justify-content: center;
+    animation: fadeInOverlay .2s ease;
+}
+@keyframes fadeInOverlay { from { opacity:0; } to { opacity:1; } }
+
+.soldout-modal-box {
+    background: #130000;
+    border: 2px solid #cc0000;
+    border-radius: 20px;
+    padding: 40px 36px;
+    max-width: 420px; width: 90%;
+    text-align: center;
+    box-shadow: 0 0 60px rgba(204,0,0,0.35);
+    animation: popIn .25s ease;
+}
+@keyframes popIn { from { transform: scale(.88); opacity:0; } to { transform: scale(1); opacity:1; } }
+
+.soldout-modal-icon  { font-size: 52px; margin-bottom: 14px; }
+.soldout-modal-title {
+    font-size: 1.4rem; font-weight: 900; color: #ff4444;
+    margin-bottom: 12px;
+}
+.soldout-modal-msg {
+    font-size: 14px; color: #ccc; line-height: 1.65;
+    margin-bottom: 28px;
+}
+.soldout-modal-msg strong { color: #fff; }
+.soldout-modal-actions { display: flex; gap: 12px; justify-content: center; }
+.soldout-btn-other {
+    padding: 12px 28px;
+    background: #cc0000; color: #fff;
+    border: none; border-radius: 10px;
+    font-size: 14px; font-weight: 700;
+    cursor: pointer; transition: background .2s;
+}
+.soldout-btn-other:hover { background: #ee0000; }
